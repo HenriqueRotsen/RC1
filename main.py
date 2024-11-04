@@ -137,7 +137,15 @@ def main():
     for _, row in df_targets.iterrows():
         user = row["UserId"]
         item = row["ItemId"]
+
         predicted_rating = predict_rating(user, item)
+        adjustment_factor = np.random.uniform(0.9, 1.1)
+        predicted_rating *= adjustment_factor
+        if predicted_rating > 5:
+            predicted_rating = 5
+        if predicted_rating < 1:
+            predicted_rating = 1
+        
         print(f"{user}:{item},{predicted_rating}")
 
 
